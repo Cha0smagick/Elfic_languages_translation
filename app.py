@@ -65,7 +65,7 @@ if st.button("Translate"):
 
             # Render the translated text in the selected Elvish font
             font_path = elvish_fonts[selected_font]
-            font = ImageFont.truetype(font_path, size=48)  # Adjust the font size as needed
+            font = ImageFont.truetype(font_path, size=24)  # Adjust the font size as needed
             image = Image.new("RGB", (800, 200), color="white")
             draw = ImageDraw.Draw(image)
             draw.text((10, 10), translated_text, fill="black", font=font)
