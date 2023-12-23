@@ -2,9 +2,10 @@ import streamlit as st
 import re
 import google.generativeai as genai
 from IPython.display import display, Markdown
+from PIL import Image, ImageDraw, ImageFont
 
 # Set up the Google GEMINI API
-genai.configure(api_key='google_api_key')  # Replace with your Gemini API key
+genai.configure(api_key='AIzaSyAkbU3CsZ-xmOhRF1XfdlVxasRtt9gdRMk')  # Replace with your Gemini API key
 
 # Define a function to clean text
 def clean_text(text):
@@ -35,6 +36,15 @@ st.title("Elvish Language Translator")
 user_input = st.text_input("Enter the text to translate:")
 target_language = st.selectbox("Select Elvish Language:", ["Quenya", "Quenya Exilic", "Telerin", "Nandorin", "Avarin", "Common Telerin", "Common Eldarin", "Primitive Quendian"])
 
+elvish_fonts = {
+    "tngan.ttf": "tngan.ttf",
+    "tnganb.ttf": "tnganb.ttf",
+    "tnganbi.ttf": "tnganbi.ttf",
+    "tngani.ttf": "tngani.ttf"
+}
+
+selected_font = st.selectbox("Select Elvish Font:", list(elvish_fonts.keys()))
+
 if st.button("Translate"):
     # Clean the user input
     cleaned_input = clean_text(user_input)
@@ -53,8 +63,14 @@ if st.button("Translate"):
         else:
             st.success(f"Translated text in {target_language}: {translated_text}")
 
+            # Render the translated text in the selected Elvish font
+            font_path = elvish_fonts[selected_font]
+            font = ImageFont.truetype(font_path, size=48)  # Adjust the font size as needed
+            image = Image.new("RGB", (800, 200), color="white")
+            draw = ImageDraw.Draw(image)
+            draw.text((10, 10), translated_text, fill="black", font=font)
+            st.image(image, caption=f"Translated text in {target_language} using {selected_font} font")
+
 # Additional information about the app
 st.markdown("This app uses the Google GEMINI API to translate text into various Elvish languages, including Quenya, Quenya Exilic, Telerin, Nandorin, Avarin, Common Telerin, Common Eldarin, and Primitive Quendian, as inspired by J.R.R. Tolkien's works.")
 st.markdown("Powered by Google GEMINI")
-
-# Add any other information or links here
