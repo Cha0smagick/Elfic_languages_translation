@@ -5,7 +5,7 @@ from IPython.display import display, Markdown
 from PIL import Image, ImageDraw, ImageFont
 
 # Set up the Google GEMINI API
-genai.configure(api_key='AIzaSyAkbU3CsZ-xmOhRF1XfdlVxasRtt9gdRMk')  # Replace with your Gemini API key
+genai.configure(api_key='your_google_api_key')  # Replace with your Gemini API key
 
 # Define a function to clean text
 def clean_text(text):
